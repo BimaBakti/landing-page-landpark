@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Camera, Image as ImageIcon } from 'lucide-react';
 import React from 'react';
 import { ImageGallery } from '../ui/ImageGallery';
+import { GalleryImage } from '@/types';
 
 const GALLERY_IMAGES = [
     {
@@ -66,7 +67,11 @@ const GALLERY_IMAGES = [
     }
 ];
 
-export const GallerySection: React.FC = () => {
+interface GallerySectionProps {
+    gallery: GalleryImage[];
+}
+
+export const GallerySection: React.FC<GallerySectionProps> = ({ gallery }) => {
     return (
         <section id="gallery" className="py-20 bg-gray-900 relative overflow-hidden">
             {/* Background Elements */}
@@ -170,7 +175,7 @@ export const GallerySection: React.FC = () => {
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.8, delay: 0.4 }}
                 >
-                    <ImageGallery images={GALLERY_IMAGES} />
+                    <ImageGallery images={gallery} />
                 </motion.div>
 
                 {/* Call to Action */}

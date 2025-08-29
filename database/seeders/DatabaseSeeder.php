@@ -19,5 +19,12 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        // Seed our Quantum Landpark data
+        $this->call([
+            ActivitySeeder::class,
+            GallerySeeder::class,
+            TestimonialSeeder::class,
+        ]);
     }
 }

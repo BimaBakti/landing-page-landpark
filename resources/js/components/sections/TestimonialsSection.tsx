@@ -3,57 +3,8 @@ import { motion } from 'framer-motion';
 import { MessageSquare, Star } from 'lucide-react';
 import React from 'react';
 import { TestimonialCard } from '../ui/TestimonialCard';
+import { Testimonial } from '@/types';
 
-const TESTIMONIALS_DATA = [
-    {
-        id: 1,
-        name: "Sarah Johnson",
-        role: "Adventure Enthusiast",
-        rating: 5,
-        comment: "Absolutely incredible experience! The white-water rafting was thrilling yet safe, and our guide was knowledgeable and fun. The scenic beauty of the location is breathtaking. Can't wait to come back for the camping experience!",
-        avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b789?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
-    },
-    {
-        id: 2,
-        name: "Michael Chen",
-        role: "Corporate Team Leader",
-        rating: 5,
-        comment: "Brought our team of 25 for a corporate retreat. The outbound activities were perfectly designed for team building. Professional staff, excellent facilities, and the group packages offered great value. Highly recommended for corporate events!",
-        avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
-    },
-    {
-        id: 3,
-        name: "Lisa Rodriguez",
-        role: "Family Adventurer",
-        rating: 5,
-        comment: "Perfect family getaway! My kids (ages 10-16) loved every minute. From the safe yet exciting rafting to the cozy camping setup, everything was well-organized. The staff went above and beyond to make sure everyone felt included and safe.",
-        avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
-    },
-    {
-        id: 4,
-        name: "David Kim",
-        role: "Adventure Photographer",
-        rating: 5,
-        comment: "As a photographer, I've visited many adventure parks. Quantum Landpark stands out for its pristine natural beauty and authentic experiences. The riverside camping under the stars was magical. Perfect backdrop for both adventure and photography!",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
-    },
-    {
-        id: 5,
-        name: "Emma Thompson",
-        role: "Solo Traveler",
-        rating: 5,
-        comment: "Traveled solo and felt completely welcomed by the community here. The guides made sure I was paired with friendly groups, and I made lifelong friends. The safety standards are top-notch, and the adventures are life-changing!",
-        avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
-    },
-    {
-        id: 6,
-        name: "James Anderson",
-        role: "Repeat Customer",
-        rating: 5,
-        comment: "This is my 4th visit to Quantum Landpark, and they never disappoint! Each season brings new activities and improvements. The consistency in quality and the passion of the staff keeps me coming back. Already booked my next adventure!",
-        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
-    }
-];
 
 const RATINGS_BREAKDOWN = [
     { stars: 5, percentage: 87, count: 2610 },
@@ -63,11 +14,14 @@ const RATINGS_BREAKDOWN = [
     { stars: 1, percentage: 0, count: 0 },
 ];
 
-export const TestimonialsSection: React.FC = () => {
-    const totalReviews = RATINGS_BREAKDOWN.reduce((sum, rating) => sum + rating.count, 0);
-    const averageRating = (
-        RATINGS_BREAKDOWN.reduce((sum, rating) => sum + rating.stars * rating.count, 0) / totalReviews
-    ).toFixed(1);
+interface TestimonialsSectionProps {
+    testimonials: Testimonial[];
+}
+
+export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ testimonials }) => {
+    const totalReviews = testimonials.length;
+    const averageRating = totalReviews > 0 ? 
+        (testimonials.reduce((sum, t) => sum + t.rating, 0) / totalReviews).toFixed(1) : '5.0';
 
     return (
         <section id="testimonials" className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
@@ -141,7 +95,7 @@ export const TestimonialsSection: React.FC = () => {
 
                 {/* Testimonials Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-                    {TESTIMONIALS_DATA.map((testimonial, index) => (
+                    {testimonials.map((testimonial, index) => (
                         <TestimonialCard
                             key={testimonial.id}
                             testimonial={testimonial}

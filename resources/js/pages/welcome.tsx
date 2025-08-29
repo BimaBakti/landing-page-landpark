@@ -11,7 +11,10 @@ import { AboutSection } from '@/components/sections/AboutSection';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 
-export default function Welcome() {
+// Import types
+import { WelcomePageProps } from '@/types';
+
+export default function Welcome({ activities, gallery, testimonials }: WelcomePageProps) {
 
     return (
         <>
@@ -43,16 +46,16 @@ export default function Welcome() {
                     <HeroSection />
                     
                     {/* Activities Section */}
-                    <ActivitiesSection />
+                    <ActivitiesSection activities={activities} />
                     
                     {/* Gallery Section */}
-                    <GallerySection />
+                    <GallerySection gallery={gallery} />
                     
                     {/* About Section */}
                     <AboutSection />
                     
                     {/* Testimonials Section */}
-                    <TestimonialsSection />
+                    <TestimonialsSection testimonials={testimonials} />
                     
                     {/* Contact Section */}
                     <ContactSection />

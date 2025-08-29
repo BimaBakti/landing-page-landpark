@@ -3,15 +3,10 @@ import { motion } from 'framer-motion';
 import { Quote, Star } from 'lucide-react';
 import React from 'react';
 
+import { Testimonial } from '@/types';
+
 interface TestimonialCardProps {
-    testimonial: {
-        id: number;
-        name: string;
-        role: string;
-        rating: number;
-        comment: string;
-        avatar: string;
-    };
+    testimonial: Testimonial;
     className?: string;
     index?: number;
 }
@@ -52,22 +47,22 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial, c
 
             {/* Comment */}
             <blockquote className="text-gray-700 leading-relaxed mb-6 relative z-10">
-                "{testimonial.comment}"
+                "{testimonial.message}"
             </blockquote>
 
             {/* Author Info */}
             <div className="flex items-center gap-3">
                 <div className="relative">
                     <img
-                        src={testimonial.avatar}
-                        alt={testimonial.name}
+                        src={testimonial.customer_avatar || '/images/default-avatar.png'}
+                        alt={testimonial.customer_name}
                         className="h-12 w-12 rounded-full object-cover ring-2 ring-red-100"
                     />
                     <div className="absolute -bottom-1 -right-1 h-4 w-4 bg-green-500 rounded-full border-2 border-white"></div>
                 </div>
                 <div>
-                    <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
-                    <p className="text-sm text-gray-600">{testimonial.role}</p>
+                    <h4 className="font-semibold text-gray-900">{testimonial.customer_name}</h4>
+                    <p className="text-sm text-gray-600">{testimonial.location || testimonial.activity_taken}</p>
                 </div>
             </div>
 

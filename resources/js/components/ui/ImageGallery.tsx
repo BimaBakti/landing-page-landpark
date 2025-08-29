@@ -9,13 +9,10 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+import { GalleryImage } from '@/types';
+
 interface ImageGalleryProps {
-    images: {
-        id: number;
-        src: string;
-        alt: string;
-        caption?: string;
-    }[];
+    images: GalleryImage[];
     className?: string;
 }
 
@@ -62,16 +59,16 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, className })
                         onClick={() => openLightbox(index)}
                     >
                         <img
-                            src={image.src}
-                            alt={image.alt}
+                            src={image.image}
+                            alt={image.title}
                             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <ZoomIn className="h-8 w-8 text-white" />
                         </div>
-                        {image.caption && (
+                        {image.description && (
                             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                                <p className="text-white text-sm font-medium">{image.caption}</p>
+                                <p className="text-white text-sm font-medium">{image.description}</p>
                             </div>
                         )}
                     </motion.div>
@@ -110,8 +107,8 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, className })
                                 onClick={() => openLightbox(index + 6)}
                             >
                                 <img
-                                    src={image.src}
-                                    alt={image.alt}
+                                    src={image.image}
+                                    alt={image.title}
                                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                                 />
                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -141,8 +138,8 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, className })
                     
                     <div className="relative max-w-4xl max-h-full" onClick={(e) => e.stopPropagation()}>
                         <img
-                            src={images[selectedImage].src}
-                            alt={images[selectedImage].alt}
+                            src={images[selectedImage].image}
+                            alt={images[selectedImage].title}
                             className="max-w-full max-h-full object-contain"
                         />
                         
@@ -161,10 +158,10 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, className })
                         </button>
                         
                         {/* Image Caption */}
-                        {images[selectedImage].caption && (
+                        {images[selectedImage].description && (
                             <div className="absolute bottom-4 left-4 right-4 text-center">
                                 <p className="text-white bg-black/50 rounded px-4 py-2 inline-block">
-                                    {images[selectedImage].caption}
+                                    {images[selectedImage].description}
                                 </p>
                             </div>
                         )}

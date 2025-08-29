@@ -3,56 +3,14 @@ import { ArrowRight, Calendar, Users } from 'lucide-react';
 import React from 'react';
 import { ActivityCard } from '../ui/ActivityCard';
 import { Button } from '../ui/Button';
+import { Activity } from '@/types';
 
-const ACTIVITIES_DATA = [
-    {
-        id: 1,
-        name: "White Water Rafting",
-        description: "Experience the thrill of navigating pristine river rapids with our expert guides. Perfect for adrenaline seekers looking for an unforgettable adventure on the water.",
-        image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        price: 250000,
-        duration: "3-4 hours",
-        features: [
-            "Professional certified guides",
-            "Complete safety equipment provided",
-            "Transport to/from river included",
-            "Waterproof bag for belongings"
-        ],
-        location: "Brantas River Rapids"
-    },
-    {
-        id: 2,
-        name: "Riverside Camping",
-        description: "Escape the city and reconnect with nature in our scenic riverside camping grounds. Wake up to the sound of flowing water and breathe in the fresh mountain air.",
-        image: "https://images.unsplash.com/photo-1504851149312-7a075b496cc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        price: 150000,
-        duration: "1-2 nights",
-        features: [
-            "Complete camping gear provided",
-            "Dedicated campfire area",
-            "Direct river access for activities",
-            "24/7 security and assistance"
-        ],
-        location: "Riverside Campgrounds"
-    },
-    {
-        id: 3,
-        name: "Team Building & Outbound",
-        description: "Strengthen bonds and build leadership skills through exciting team challenges and outdoor activities designed by professional facilitators.",
-        image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        price: 300000,
-        duration: "Full day",
-        features: [
-            "Certified professional facilitators",
-            "Customized team challenges",
-            "Leadership development activities",
-            "Team performance analysis"
-        ],
-        location: "Adventure Training Grounds"
-    }
-];
 
-export const ActivitiesSection: React.FC = () => {
+interface ActivitiesSectionProps {
+    activities: Activity[];
+}
+
+export const ActivitiesSection: React.FC<ActivitiesSectionProps> = ({ activities }) => {
     return (
         <section id="activities" className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
             {/* Background Pattern */}
@@ -89,7 +47,7 @@ export const ActivitiesSection: React.FC = () => {
 
                 {/* Activities Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-                    {ACTIVITIES_DATA.map((activity, index) => (
+                    {activities.map((activity, index) => (
                         <ActivityCard
                             key={activity.id}
                             activity={activity}
