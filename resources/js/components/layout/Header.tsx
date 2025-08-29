@@ -68,6 +68,12 @@ export const Header: React.FC = () => {
 
                     {/* Desktop CTA Button */}
                     <div className="hidden md:flex items-center space-x-4">
+                        <a
+                            href="/login"
+                            className="text-sm text-gray-600 hover:text-red-600 transition-colors duration-200"
+                        >
+                            Admin
+                        </a>
                         <Button variant="primary" size="sm">
                             Book Adventure
                         </Button>

@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
 
         // Seed our Quantum Landpark data
         $this->call([
+            AdminUserSeeder::class,
             ActivitySeeder::class,
             GallerySeeder::class,
             TestimonialSeeder::class,
