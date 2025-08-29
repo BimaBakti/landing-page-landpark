@@ -35,33 +35,36 @@ export default function AdminLayout({ children, title = 'Admin Dashboard' }: Adm
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-100">
       {/* Mobile sidebar overlay */}
       {sidebarOpen && (
         <div 
           className="fixed inset-0 z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
+          role="button"
+          aria-label="Close sidebar"
         >
-          <div className="fixed inset-0 bg-gray-600 bg-opacity-75" />
+          <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300" />
         </div>
       )}
 
       {/* Sidebar */}
       <div className={`
-        fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0
+        fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
-        <div className="flex items-center justify-between h-16 px-6 bg-red-600">
+        <div className="flex items-center justify-between h-16 px-6 bg-gradient-to-r from-red-600 to-red-700">
           <h1 className="text-white font-bold text-lg">Quantum Landpark</h1>
           <button
             onClick={() => setSidebarOpen(false)}
-            className="text-white lg:hidden"
+            className="text-white lg:hidden hover:bg-red-500 rounded-md p-1 transition-colors duration-200"
+            aria-label="Close sidebar"
           >
-            <X size={24} />
+            <X size={20} />
           </button>
         </div>
         
-        <nav className="mt-8">
+        <nav className="mt-8" role="navigation" aria-label="Admin navigation">
           {navigation.map((item) => {
             const Icon = item.icon;
             return (
@@ -69,43 +72,45 @@ export default function AdminLayout({ children, title = 'Admin Dashboard' }: Adm
                 key={item.name}
                 href={item.href}
                 className={`
-                  flex items-center px-6 py-3 text-sm font-medium transition-colors duration-150
+                  flex items-center px-6 py-3 text-sm font-medium transition-all duration-200 group
                   ${isActive(item.href)
-                    ? 'bg-red-50 text-red-600 border-r-2 border-red-600'
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                    ? 'bg-red-50 text-red-700 border-r-4 border-red-600 shadow-sm'
+                    : 'text-gray-600 hover:bg-red-50 hover:text-red-600'
                   }
                 `}
               >
-                <Icon size={20} className="mr-3" />
+                <Icon size={20} className={`mr-3 transition-colors duration-200 ${isActive(item.href) ? 'text-red-600' : 'group-hover:text-red-500'}`} />
                 {item.name}
               </Link>
             );
           })}
         </nav>
 
-        <div className="absolute bottom-0 w-full p-6">
+        <div className="absolute bottom-0 w-full p-6 border-t border-gray-200">
           <Link
             href="/logout"
             method="post"
-            className="flex items-center text-gray-600 hover:text-gray-900 text-sm font-medium"
+            as="button"
+            className="flex items-center w-full text-gray-600 hover:text-red-600 text-sm font-medium transition-colors duration-200 group"
           >
-            <LogOut size={20} className="mr-3" />
+            <LogOut size={20} className="mr-3 group-hover:text-red-500" />
             Logout
           </Link>
         </div>
       </div>
 
       {/* Main content */}
-      <div className="lg:ml-64">
+      <div className="flex-1 flex flex-col">
         {/* Top bar */}
         <div className="bg-white shadow-sm border-b">
           <div className="flex items-center justify-between h-16 px-6">
             <div className="flex items-center">
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="text-gray-500 hover:text-gray-700 lg:hidden"
+                className="text-gray-500 hover:text-gray-700 lg:hidden hover:bg-gray-100 rounded-md p-2 transition-colors duration-200"
+                aria-label="Open sidebar"
               >
-                <Menu size={24} />
+                <Menu size={20} />
               </button>
               <h2 className="ml-4 text-xl font-semibold text-gray-800 lg:ml-0">{title}</h2>
             </div>
@@ -116,8 +121,10 @@ export default function AdminLayout({ children, title = 'Admin Dashboard' }: Adm
         </div>
 
         {/* Page content */}
-        <main className="p-6">
-          {children}
+        <main className="flex-1 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+            {children}
+          </div>
         </main>
       </div>
     </div>
